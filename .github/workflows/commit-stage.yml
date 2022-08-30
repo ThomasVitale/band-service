@@ -37,7 +37,7 @@ jobs:
       - name: Output image name
         id: image
         run: |
-          image_name="$(echo ${IMAGE_REGISTRY}/${IMAGE_NAME} | tr '[:upper:]' '[:lower:]')" 
+          image_name="$(echo ${env.REGISTRY}/${IMAGE_REGISTRY}/${IMAGE_NAME} | tr '[:upper:]' '[:lower:]')" 
           echo "::set-output name=image::$image_name"
       - name: Output image digest
         id: digest
