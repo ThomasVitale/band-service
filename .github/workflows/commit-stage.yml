@@ -53,6 +53,10 @@ jobs:
         id: digest
         run: |
           echo "::set-output name=digest::$(podman inspect --format='{{.Digest}}' ${REGISTRY}/${IMAGE_NAME}:${VERSION})"
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v2.5.1
+        with:
+          cosign-release: 'v1.11.1'
       - name: Generate provenance
         uses: philips-labs/slsa-provenance-action@v0.8.0
         with:
