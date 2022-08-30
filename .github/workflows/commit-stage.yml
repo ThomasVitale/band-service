@@ -34,33 +34,14 @@ jobs:
           registry: ${{ env.REGISTRY }}
       - name: Publish OCI image 
         run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-      - name: Output image name
-        id: image
-        run: |
-          image_name="$(echo ${env.REGISTRY}/${IMAGE_REGISTRY}/${IMAGE_NAME} | tr '[:upper:]' '[:lower:]')" 
-          echo "::set-output name=image::$image_name"
-      - name: Output image digest
-        id: digest
-        run: |
-          image_digest="$(echo ${VERSION})" 
-          echo "::set-output name=digest::$image_digest"
       # - name: Generate provenance metadata
       #   uses: slsa-framework/github-actions-demo@v0.1
       #   with:
       #     artifact_path: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-  
-  provenance:
-    name: Provenance
-    needs: [build]
-    permissions:
-      actions: read
-      id-token: write
-      packages: write
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@main
-    with:
-      image: ${{ needs.build.outputs.image }}
-      digest: ${{ needs.build.outputs.digest }}
-      registry-username: ${{ github.actor }}
-      compile-generator: true
-    secrets:
-      registry-password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate provenance
+        uses: philips-labs/slsa-provenance-action@v0.8.0
+        with:
+          command: generate
+          subcommand: container
+          arguments: --repository ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} --digest ${{ env.VERSION }}
+
