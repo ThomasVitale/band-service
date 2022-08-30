@@ -43,5 +43,5 @@ jobs:
         with:
           command: generate
           subcommand: container
-          arguments: --repository ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} --digest ${{ env.VERSION }}
+          arguments: --repository ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} --tags ${{ env.VERSION }} --digest ${{ env.VERSION }}
 
