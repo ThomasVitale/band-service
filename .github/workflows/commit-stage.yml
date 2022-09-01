@@ -78,9 +78,10 @@ jobs:
       - name: Get OCI image digest
         id: image-info
         run: |
-          image-digest=$(podman inspect --format='{{.Digest}}' ${REGISTRY}/${IMAGE_NAME}:${VERSION})
-          echo "IMAGE_DIGEST=${image-digest}" >> $GITHUB_ENV
-          echo "::set-output name=digest::${image-digest}"
+          image_digest=$(podman inspect --format='{{.Digest}}' ${REGISTRY}/${IMAGE_NAME}:${VERSION})
+          echo $image_digest
+          echo "IMAGE_DIGEST=${image_digest}" >> $GITHUB_ENV
+          echo "::set-output name=digest::${image_digest}"
       - name: Sign image
         run: |
           cosign sign "${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST}"
