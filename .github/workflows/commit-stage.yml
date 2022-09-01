@@ -78,8 +78,7 @@ jobs:
       - name: Get OCI image digest
         id: image-info
         run: |
-          image-digest="$(podman inspect --format='{{.Digest}}' ${REGISTRY}/${IMAGE_NAME}:${VERSION})"
-          echo ${image-digest}
+          image-digest=$(podman inspect --format='{{.Digest}}' ${REGISTRY}/${IMAGE_NAME}:${VERSION})
           echo "IMAGE_DIGEST=${image-digest}" >> $GITHUB_ENV
           echo "::set-output name=digest::${image-digest}"
       - name: Sign image
@@ -92,7 +91,7 @@ jobs:
   provenance:
     name: Provenance
     runs-on: ubuntu-22.04
-    needs: [build]
+    needs: [sign]
     permissions:
       contents: write
       packages: write
