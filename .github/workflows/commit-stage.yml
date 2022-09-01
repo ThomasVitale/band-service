@@ -54,6 +54,41 @@ jobs:
       - name: Publish OCI image 
         run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
+  sign:
+    name: Sign
+    runs-on: ubuntu-22.04
+    needs: [build]
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image-digest: ${{ steps.image-info.outputs.digest }}
+    steps:
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v2.5.1
+        with:
+          cosign-release: 'v1.11.1'
+      - uses: redhat-actions/podman-login@v1.4
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ${{ env.REGISTRY }}
+      - name: Fetch OCI image 
+        run: podman pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+      - name: Get OCI image digest
+        id: image-info
+        run: |
+          image-digest="$(podman inspect --format='{{.Digest}}' ${REGISTRY}/${IMAGE_NAME}:${VERSION})"
+          echo $(image-digest)
+          echo "IMAGE_DIGEST=$(image-digest)" >> $GITHUB_ENV
+          echo "::set-output name=digest::$(image-digest)"
+      - name: Sign image
+        run: |
+          cosign sign "${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST}"
+          echo "::notice title=Verify signature: cosign verify ${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST} | jq '.[0]'"
+          echo "::notice title=Inspect signature bundle: cosign verify ${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST} | jq '.[0].optional.Bundle.Payload.body |= @base64d | .[0].optional.Bundle.Payload.body | fromjson'"
+          echo "::notice title=Inspect certificate: cosign verify ${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST} | jq -r '.[0].optional.Bundle.Payload.body |= @base64d | .[0].optional.Bundle.Payload.body | fromjson | .spec.signature.publicKey.content |= @base64d | .spec.signature.publicKey.content' | openssl x509 -text"
+       
   provenance:
     name: Provenance
     runs-on: ubuntu-22.04
