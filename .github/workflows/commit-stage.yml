@@ -79,9 +79,9 @@ jobs:
         id: image-info
         run: |
           image-digest="$(podman inspect --format='{{.Digest}}' ${REGISTRY}/${IMAGE_NAME}:${VERSION})"
-          echo $(image-digest)
-          echo "IMAGE_DIGEST=$(image-digest)" >> $GITHUB_ENV
-          echo "::set-output name=digest::$(image-digest)"
+          echo ${image-digest}
+          echo "IMAGE_DIGEST=${image-digest}" >> $GITHUB_ENV
+          echo "::set-output name=digest::${image-digest}"
       - name: Sign image
         run: |
           cosign sign "${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST}"
