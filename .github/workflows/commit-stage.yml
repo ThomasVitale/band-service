@@ -31,12 +31,9 @@ jobs:
           path: "${{ github.workspace }}"
           fail-build: true
           severity-cutoff: high
-          acs-report-enable: true
-      - name: Upload vulnerability reports
-        uses: github/codeql-action/upload-sarif@v2
-        if: success() || failure()
-        with:
-          sarif_file: ${{ steps.scan-code.outputs.sarif }}
+          output-format: json
+      - name: Inspect code scan report
+        run: cat ${{ steps.scan-code.outputs.json }}
       - name: Package as OCI image
         run: ./gradlew bootBuildImage --imageName ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
       - name: OCI image vulnerability scanning
@@ -46,12 +43,9 @@ jobs:
           image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           fail-build: true
           severity-cutoff: high
-          acs-report-enable: true
-      - name: Upload vulnerability report
-        uses: github/codeql-action/upload-sarif@v2
-        if: success() || failure()
-        with:
-          sarif_file: ${{ steps.scan-image.outputs.sarif }}
+          output-format: json
+      - name: Inspect code scan report
+        run: cat ${{ steps.scan-image.outputs.json }}
       - uses: docker/login-action@v2
         with:
           username: ${{ github.actor }}
