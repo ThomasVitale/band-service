@@ -122,7 +122,7 @@ jobs:
           cosign-release: 'v1.11.1'
 
       - name: Generate provenance
-        uses: philips-labs/slsa-provenance-action@v0.8.0
+        uses: philips-labs/slsa-provenance-action@v0.7.2
         with:
           command: generate
           subcommand: container
@@ -130,7 +130,7 @@ jobs:
         env:
           COSIGN_EXPERIMENTAL: 0
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          #IMAGE_TAGS: ${{ env.VERSION }}
+          IMAGE_TAGS: ${{ env.VERSION }}
 
       - name: Upload provenance
         uses: actions/upload-artifact@v3
