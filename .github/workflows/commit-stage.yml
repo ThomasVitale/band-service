@@ -127,10 +127,10 @@ jobs:
           command: generate
           subcommand: container
           arguments: --repository ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} --tags ${{ env.VERSION }} --digest ${{ env.IMAGE_DIGEST }} --output-path ${{ env.PROVENANCE_FILE }}
-        env:
-          COSIGN_EXPERIMENTAL: 0
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          IMAGE_TAGS: ${{ env.VERSION }}
+        # env:
+        #   COSIGN_EXPERIMENTAL: 0
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #   IMAGE_TAGS: ${{ env.VERSION }}
 
       - name: Upload provenance
         uses: actions/upload-artifact@v3
