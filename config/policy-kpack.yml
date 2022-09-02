@@ -1,0 +1,27 @@
+---
+apiVersion: kyverno.io/v1
+kind: Policy
+metadata:
+  name: check-image-kpack
+spec:
+  validationFailureAction: enforce
+  webhookTimeoutSeconds: 30
+  rules:
+    - name: check-image-kpack
+      match:
+        any:
+        - resources:
+            kinds:
+              - Pod
+      verifyImages:
+      - imageReferences:
+        - "ghcr.io/thomasvitale/band-service:*"
+        attestors:
+        - count: 1
+          entries:
+          - keys:
+              publicKeys: |-
+                -----BEGIN PUBLIC KEY-----
+                MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEMKw8XtbvoRNsyZ2B0QlePTk2eyb+
+                lJBoLUV6SwmoTv81QT5j0PD3b8QgLbKpnb1XVXxZEIrXC4JGQtyMeWjubQ==
+                -----END PUBLIC KEY-----    
