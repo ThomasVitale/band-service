@@ -39,3 +39,46 @@ jobs:
 
       - name: Publish OCI image 
         run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+
+  provenance:
+    name: Provenance
+    runs-on: ubuntu-22.04
+    needs: [build]
+    permissions:
+      contents: write
+      packages: read
+    env:
+      PROVENANCE_FILE: provenance.att
+    steps:
+      - uses: redhat-actions/podman-login@v1.4
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ${{ env.REGISTRY }}
+
+      - name: Fetch OCI image
+        run: podman pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+
+      - name: Get OCI image digest
+        id: image-info
+        run: |
+          image_digest=$(podman inspect --format='{{.Digest}}' ${REGISTRY}/${IMAGE_NAME}:${VERSION})
+          echo $image_digest
+          echo "IMAGE_DIGEST=${image_digest}" >> $GITHUB_ENV
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v2.5.1
+        with:
+          cosign-release: 'v1.11.1'
+
+      - name: Generate provenance
+        uses: philips-labs/slsa-provenance-action@v0.7.2
+        with:
+          command: generate
+          subcommand: container
+          arguments: --repository ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} --tags ${{ env.VERSION }} --digest ${{ env.IMAGE_DIGEST }} --output-path ${{ env.PROVENANCE_FILE }}
+
+      - name: Upload provenance
+        uses: actions/upload-artifact@v3
+        with:
+          path: ${{ env.PROVENANCE_FILE }}
