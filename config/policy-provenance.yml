@@ -1,0 +1,32 @@
+---
+apiVersion: kyverno.io/v1
+kind: Policy
+metadata:
+  name: check-image-provenance
+spec:
+  validationFailureAction: enforce
+  webhookTimeoutSeconds: 30
+  rules:
+    - name: attest
+      match:
+        any:
+        - resources:
+            kinds:
+              - Pod
+      verifyImages:
+      - image: "ghcr.io/thomasvitale/band-service:*"
+        attestors:
+        - entries:
+          - keyless:
+              subject: "https://github.com/ThomasVitale/band-service/.github/workflows/commit-stage.yml@refs/*"
+              issuer: "https://token.actions.githubusercontent.com"       
+        attestations:
+          - predicateType: https://slsa.dev/provenance/v0.2
+            conditions:
+              - all:
+                - key: "{{ builder.id }}"
+                  operator: Equals
+                  value: "https://github.com/philips-labs/slsa-provenance-action/Attestations/GitHubHostedActions@v1"        
+                - key: "{{ buildType }}"
+                  operator: Equals
+                  value: "https://github.com/Attestations/GitHubActionsWorkflow@v1"
