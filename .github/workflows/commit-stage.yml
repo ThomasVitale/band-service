@@ -1,0 +1,127 @@
+name: Commit Stage
+on: push
+
+env:
+  COSIGN_EXPERIMENTAL: 1
+  REGISTRY: ghcr.io
+  IMAGE_NAME: thomasvitale/band-service
+  VERSION: ${{ github.sha }}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: gradle
+
+      - name: Compile and test
+        run: ./gradlew clean build
+
+      - name: Package as OCI image
+        run: ./gradlew bootBuildImage --imageName ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+
+      - name: Authenticate with the container registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ${{ env.REGISTRY }}
+
+      - name: Publish OCI image
+        run: |
+          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+  sign:
+    name: Sign
+    runs-on: ubuntu-22.04
+    needs: [build]
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    outputs:
+      image-digest: ${{ steps.image-info.outputs.digest }}
+    steps:
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v2.5.1
+        with:
+          cosign-release: 'v1.11.1'
+
+      - uses: redhat-actions/podman-login@v1.4
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ${{ env.REGISTRY }}
+
+      - name: Fetch OCI image 
+        run: podman pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+
+      - name: Get OCI image digest
+        id: image-info
+        run: |
+          image_digest=$(podman inspect --format='{{.Digest}}' ${REGISTRY}/${IMAGE_NAME}:${VERSION})
+          echo $image_digest
+          echo "IMAGE_DIGEST=${image_digest}" >> $GITHUB_ENV
+          echo "::set-output name=digest::${image_digest}"
+      - name: Sign image
+        run: |
+          cosign sign "${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST}"
+          echo "::notice title=Verify signature::COSIGN_EXPERIMENTAL=1 cosign verify ${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST} | jq '.[0]'"
+          echo "::notice title=Inspect signature bundle::COSIGN_EXPERIMENTAL=1 cosign verify ${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST} | jq '.[0].optional.Bundle.Payload.body |= @base64d | .[0].optional.Bundle.Payload.body | fromjson'"
+          echo "::notice title=Inspect certificate::COSIGN_EXPERIMENTAL=1 cosign verify ${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST} | jq -r '.[0].optional.Bundle.Payload.body |= @base64d | .[0].optional.Bundle.Payload.body | fromjson | .spec.signature.publicKey.content |= @base64d | .spec.signature.publicKey.content' | openssl x509 -text"
+
+  provenance:
+    name: Provenance
+    runs-on: ubuntu-22.04
+    needs: [sign]
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+    env:
+      IMAGE_DIGEST: ${{ needs.sign.outputs.image-digest }}
+      PROVENANCE_FILE: provenance.att
+    steps:
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v2.5.1
+        with:
+          cosign-release: 'v1.11.1'
+
+      - name: Generate provenance
+        uses: philips-labs/slsa-provenance-action@v0.7.2
+        with:
+          command: generate
+          subcommand: container
+          arguments: --repository ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} --tags ${{ env.VERSION }} --digest ${{ env.IMAGE_DIGEST }} --output-path ${{ env.PROVENANCE_FILE }}
+        env:
+          COSIGN_EXPERIMENTAL: 0
+
+      - name: Upload provenance
+        uses: actions/upload-artifact@v3
+        with:
+          path: ${{ env.PROVENANCE_FILE }}
+
+      - uses: redhat-actions/podman-login@v1.4
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ${{ env.REGISTRY }}
+
+      - name: Attach provenance
+        run: |
+          jq '.predicate' "${PROVENANCE_FILE}" > provenance-predicate.att
+          cosign attest --predicate provenance-predicate.att --type slsaprovenance "${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST}"
+          echo "::notice title=Verify provenance attestation::COSIGN_EXPERIMENTAL=1 cosign verify-attestation ${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST} | jq '.payload |= @base64d | .payload | fromjson | select(.predicateType == \"https://slsa.dev/provenance/v0.2\")'"

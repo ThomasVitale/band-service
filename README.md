@@ -1,1 +1,1 @@
-# band-service
+# Band Service
