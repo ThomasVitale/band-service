@@ -21,7 +21,7 @@ public class BandServiceApplication {
 		return RouterFunctions.route()
 			.GET("/", request -> ServerResponse.ok().body("Welcome to the Band Service"))
 			.GET("/instruments", request -> ServerResponse.ok().body(List.of(
-				"piano", "guitar", "drums"
+				"piano", "guitar", "drums", "hurdy-gurdy"
 			)))
 			.build();
 	}
