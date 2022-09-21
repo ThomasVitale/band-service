@@ -5,9 +5,14 @@ metadata:
   name: band-service
   labels:
     apps.tanzu.vmware.com/workload-type: web
+    apps.tanzu.vmware.com/has-tests: "true"
     app.kubernetes.io/part-of: band-service
 spec:
   serviceAccountName: default
+  params:
+    - name: annotations
+      value:
+        autoscaling.knative.dev/min-scale: "1"
   source:
     git:
       url: https://github.com/ThomasVitale/band-service
@@ -19,7 +24,7 @@ spec:
         value: "17.*"
   resources:
     limits:
-      cpu: "1.5"
+      cpu: "2"
       memory: 756Mi
     requests:
       cpu: "0.1"
