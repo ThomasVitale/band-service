@@ -19,7 +19,7 @@ public class BandServiceApplication {
 	@Bean
 	RouterFunction<ServerResponse> routerFunction() {
 		return RouterFunctions.route()
-			.GET("/", request -> ServerResponse.ok().body("Welcome to the Band Service"))
+			.GET("/", request -> ServerResponse.ok().body("Welcome to the Band"))
 			.GET("/instruments", request -> ServerResponse.ok().body(List.of(
 				"piano", "guitar", "drums", "violin"
 			)))
