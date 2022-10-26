@@ -56,9 +56,9 @@ jobs:
       image-digest: ${{ steps.image-info.outputs.digest }}
     steps:
       - name: Install Cosign
-        uses: sigstore/cosign-installer@v2.5.1
+        uses: sigstore/cosign-installer@v2.8.1
         with:
-          cosign-release: 'v1.11.1'
+          cosign-release: 'v1.13.0'
 
       - uses: redhat-actions/podman-login@v1.4
         with:
@@ -96,9 +96,9 @@ jobs:
       PROVENANCE_FILE: provenance.att
     steps:
       - name: Install Cosign
-        uses: sigstore/cosign-installer@v2.5.1
+        uses: sigstore/cosign-installer@v2.8.1
         with:
-          cosign-release: 'v1.11.1'
+          cosign-release: 'v1.13.0'
 
       - name: Generate provenance
         uses: philips-labs/slsa-provenance-action@v0.7.2
