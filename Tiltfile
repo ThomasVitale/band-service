@@ -21,7 +21,7 @@ k8s_custom_deploy(
 )
 
 k8s_resource('band-service', port_forwards=["8080:8080"],
-            extra_pod_selectors=[{'serving.knative.dev/service': 'band-service'}])
+            extra_pod_selectors=[{'carto.run/workload-name': 'band-service', 'app.kubernetes.io/component': 'run'}])
 
 allow_k8s_contexts('do-fra1-kadras-iterate-cluster')
 

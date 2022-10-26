@@ -3,7 +3,7 @@ kind: Pipeline
 metadata:
   name: testing-pipeline
   labels:
-    apps.tanzu.vmware.com/pipeline: test
+    apps.kadras.io/pipeline: test
 spec:
   params:
     - name: source-url

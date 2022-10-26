@@ -4,8 +4,8 @@ kind: Workload
 metadata:
   name: band-service
   labels:
-    apps.tanzu.vmware.com/workload-type: web
-    apps.tanzu.vmware.com/has-tests: "true"
+    apps.kadras.io/workload-type: web
+    apps.kadras.io/has-tests: "true"
     app.kubernetes.io/part-of: band-service
 spec:
   serviceAccountName: default
@@ -25,7 +25,7 @@ spec:
   resources:
     limits:
       cpu: "2"
-      memory: 756Mi
+      memory: 1Gi
     requests:
-      cpu: "0.1"
-      memory: 756Mi
+      cpu: "0.2"
+      memory: 1Gi

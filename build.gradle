@@ -1,7 +1,7 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.3'
-	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
-	id 'java'
+  	id 'org.springframework.boot' version '3.0.0-RC1'
+  	id 'io.spring.dependency-management' version '1.1.0'
+  	id 'java'
 }
 
 group = 'com.thomasvitale'
@@ -10,6 +10,7 @@ sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
 }
 
 dependencies {
@@ -24,4 +25,19 @@ tasks.named('test') {
 
 tasks.named('jar') {
 	enabled = false
+}
+
+tasks.named('bootBuildImage') {
+	
+	if (System.getProperty( "os.arch" ).toLowerCase().startsWith('aarch')) {
+		// This builder is only for ARM64 systems.
+		// For more info: https://github.com/thomasvitale/paketo-arm64
+		builder = "ghcr.io/thomasvitale/java-builder-arm64"
+	}
+
+	imageName = "band-service"
+}
+
+dependencyLocking {
+    lockAllConfigurations()
 }
