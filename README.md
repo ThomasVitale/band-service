@@ -29,17 +29,8 @@ pack build band-service \
 
 [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/container-images.html#container-images.buildpacks) includes support for Cloud Native Buildpacks directly for both Maven and Gradle.
 
-For AMD64 architectures:
-
 ```shell
 ./gradlew bootBuildImage
-```
-
-For ARM64 architectures:
-
-```shell
-./gradlew bootBuildImage \
-    --builder ghcr.io/thomasvitale/java-builder-arm64
 ```
 
 ## Signing commits with Sigstore gitsign
@@ -112,18 +103,29 @@ To learn more about Cloud Native Buildpacks and SBOMs:
 * [Software Bill of Materials (SBOM)](https://paketo.io/docs/concepts/sbom/)
 * [How to Access the Software Bill of Materials](https://paketo.io/docs/howto/sbom/)
 
-## Vulnerability Scanning with Grype
+## Vulnerability Scanning with Trivy
 
-You can scan source code with [Grype](https://github.com/anchore/grype) as follows:
+You can scan source code with [Trivy](https://trivy.dev) as follows:
 
 ```shell
-grype <path>
+trivy fs .
 ```
 
 You can also scan a container image:
 
 ```shell
-grype <image>
+trivy image <image>
+```
+
+## Lock dependencies with Gradle
+
+Gradle lets you lock all the dependencies in your project and fail a build is any of them is changed
+outside the standard lifecycle.
+
+You can generate/update the list of locked dependencies as follows:
+
+```shell
+./gradlew dependencies --write-locks
 ```
 
 ## Verify third-party artefacts with Gradle
