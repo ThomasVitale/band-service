@@ -84,6 +84,7 @@ jobs:
       id-token: write
     outputs:
       image-digest: ${{ steps.image-info.outputs.digest }}
+      image-name: ${{ steps.image-info.outputs.name }}
     steps:
       - name: Install Cosign
         uses: sigstore/cosign-installer@v2.8.1
@@ -104,6 +105,7 @@ jobs:
           echo $image_digest
           echo "IMAGE_DIGEST=${image_digest}" >> $GITHUB_ENV
           echo "::set-output name=digest::${image_digest}"
+          echo "::set-output name=image::${REGISTRY}/${IMAGE_NAME}"
 
       - name: Sign image
         run: |
@@ -120,7 +122,7 @@ jobs:
       packages: write
     uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v1.4.0
     with:
-      image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      image: ${{ needs.sign.outputs.image-name }}
       digest: ${{ needs.sign.outputs.image-digest }}
       registry-username: ${{ inputs.registry-username }}
     secrets:
