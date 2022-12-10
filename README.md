@@ -73,6 +73,16 @@ You can verify a commit as follows:
 git verify-commit HEAD
 ```
 
+## Signing OCI artifacts
+
+After packaging the currente application as an OCI image, cosign is used to sign the artifact.
+
+You can verify the signature as follows:
+
+```shell
+COSIGN_EXPERIMENTAL=1 cosign verify ghcr.io/thomasvitale/band-service | jq '.[0]'
+```
+
 ## Software Bill of Materials (SBOMs) with Syft
 
 You can generate a SBOM with [Syft](https://github.com/anchore/syft) as follows:
