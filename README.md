@@ -1,5 +1,7 @@
 # Band Service
 
+<a href="https://slsa.dev/spec/v0.1/levels"><img src="https://slsa.dev/images/gh-badge-level3.svg" alt="The SLSA Level 3 badge"></a>
+
 ## Container images with Cloud Native Buildpacks
 
 "Cloud Native Buildpacks transform your application source code into images that can run on any cloud." ([buildpacks.io](https://buildpacks.io))
