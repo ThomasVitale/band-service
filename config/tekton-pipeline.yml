@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: testing-pipeline
@@ -29,5 +29,6 @@ spec:
             script: |-
               cd `mktemp -d`
               wget -qO- $(params.source-url) | tar xvz -m
-              cd $(params.source-subpath) 
+              cd $(params.source-subpath)
+              chmod +x ./gradlew
               ./gradlew test
