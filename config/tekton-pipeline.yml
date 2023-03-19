@@ -25,10 +25,10 @@ spec:
           - name: source-subpath
         steps:
           - name: test
-            image: gradle
+            image: cgr.dev/chainguard/jdk:openjdk-17
             script: |-
               cd `mktemp -d`
               wget -qO- $(params.source-url) | tar xvz -m
               cd $(params.source-subpath)
               chmod +x ./gradlew
-              ./gradlew test
+              ./gradlew test --no-daemon
