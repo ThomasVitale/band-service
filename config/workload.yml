@@ -6,25 +6,11 @@ metadata:
   labels:
     apps.kadras.io/workload-type: web
     apps.kadras.io/has-tests: "true"
+    apps.kadras.io/language: "java"
     app.kubernetes.io/part-of: band-service
 spec:
-  serviceAccountName: default
-  params:
-    - name: annotations
-      value:
-        autoscaling.knative.dev/min-scale: "1"
   source:
     git:
       url: https://github.com/ThomasVitale/band-service
       ref:
         branch: main
-  build:
-    env: 
-      - name: BP_JVM_VERSION 
-        value: "17"
-  resources:
-    limits:
-      memory: 1Gi
-    requests:
-      cpu: "0.2"
-      memory: 1Gi
