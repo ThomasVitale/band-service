@@ -2,7 +2,6 @@ name: Commit Stage
 on: push
 
 env:
-  COSIGN_EXPERIMENTAL: 1
   REGISTRY: ghcr.io
   IMAGE_NAME: thomasvitale/band-service
   VERSION: ${{ github.sha }}
@@ -39,7 +38,7 @@ jobs:
         if: success() || failure()
         with:
           sarif_file: 'trivy-results-source-code.sarif'
-          category: source-code
+          category: "source-code"
 
       - name: Compile and test
         run: ./gradlew clean build
@@ -53,13 +52,13 @@ jobs:
           image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           format: 'sarif'
           output: 'trivy-results-oci-image.sarif'
-          category: oci-image
 
       - name: Upload vulnerability report
         uses: github/codeql-action/upload-sarif@v2
         if: success() || failure()
         with:
           sarif_file: 'trivy-results-oci-image.sarif'
+          category: "oci-image"
 
       - name: Authenticate with the container registry
         uses: docker/login-action@v2
@@ -87,9 +86,9 @@ jobs:
       image-name: ${{ steps.image-info.outputs.name }}
     steps:
       - name: Install Cosign
-        uses: sigstore/cosign-installer@v2.8.1
+        uses: sigstore/cosign-installer@v3
 
-      - uses: redhat-actions/podman-login@v1.4
+      - uses: redhat-actions/podman-login@v1.6
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
@@ -109,10 +108,7 @@ jobs:
 
       - name: Sign image
         run: |
-          cosign sign "${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST}"
-          echo "::notice title=Verify signature::COSIGN_EXPERIMENTAL=1 cosign verify ${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST} | jq '.[0]'"
-          echo "::notice title=Inspect signature bundle::COSIGN_EXPERIMENTAL=1 cosign verify ${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST} | jq '.[0].optional.Bundle.Payload.body |= @base64d | .[0].optional.Bundle.Payload.body | fromjson'"
-          echo "::notice title=Inspect certificate::COSIGN_EXPERIMENTAL=1 cosign verify ${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST} | jq -r '.[0].optional.Bundle.Payload.body |= @base64d | .[0].optional.Bundle.Payload.body | fromjson | .spec.signature.publicKey.content |= @base64d | .spec.signature.publicKey.content' | openssl x509 -text"
+          cosign sign --yes "${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST}"
 
   provenance:
     needs: [sign]
@@ -120,7 +116,7 @@ jobs:
       actions: read
       id-token: write
       packages: write
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v1.4.0
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v1.8.0
     with:
       image: ${{ needs.sign.outputs.image-name }}
       digest: ${{ needs.sign.outputs.image-digest }}

@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
         - name: band-service
-          image: ghcr.io/polarbookshop/band-service
+          image: ghcr.io/thomasvitale/band-service
           ports:
             - containerPort: 8080
           resources:
