@@ -1,6 +1,8 @@
 # Band Service
 
-<a href="https://slsa.dev/spec/v0.1/levels"><img src="https://slsa.dev/images/gh-badge-level3.svg" alt="The SLSA Level 3 badge"></a>
+![Build Workflow](https://github.com/thomasvitale/band-service/actions/workflows/commit.stage.yml/badge.svg)
+[![The SLSA Level 3 badge](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev/spec/v1.0/levels)
+[![The Apache 2.0 license badge](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Container images with Cloud Native Buildpacks
 
@@ -14,7 +16,7 @@ For AMD64 architectures:
 
 ```shell
 pack build band-service \
-    --builder paketobuildpacks/builder:base \
+    --builder paketobuildpacks/builder-jammy-tiny \
     --env BP_JVM_VERSION=17
 ```
 
@@ -22,7 +24,7 @@ For ARM64 architectures:
 
 ```shell
 pack build band-service \
-    --builder ghcr.io/thomasvitale/java-builder-arm64 \
+    --builder docker.io/dashaun/builder-arm:tiny \
     --env BP_JVM_VERSION=17 \
     --trust-builder
 ```
@@ -47,14 +49,6 @@ Configure your application repository to enforce commit signing with gitsign:
 
 ```shell
 cd <your_repository_path>
-git config --local commit.gpgsign true  # Sign all commits
-git config --local tag.gpgsign true  # Sign all tags
-git config --local gpg.x509.program gitsign  # Use gitsign for signing
-git config --local gpg.format x509  # gitsign expects x509 args
-```
-
-```shell
-cd <your_repository_path>
 # Sign all commits
 git config --local commit.gpgsign true
 # Sign all tags
@@ -73,14 +67,42 @@ You can verify a commit as follows:
 git verify-commit HEAD
 ```
 
-## Signing OCI artifacts
+## Verifying signatures and SLSA attestations
 
-After packaging the currente application as an OCI image, cosign is used to sign the artifact.
+After packaging the currente application as an OCI image, cosign is used to sign the artifact and the SLSA attestation.
 
-You can verify the signature as follows:
+Using `cosign`, you can display the supply chain security related artifacts for the `ghcr.io/thomasvitale/band-service` images. Use the specific digest you'd like to verify.
 
 ```shell
-COSIGN_EXPERIMENTAL=1 cosign verify ghcr.io/thomasvitale/band-service | jq '.[0]'
+cosign tree ghcr.io/thomasvitale/band-service
+```
+
+The result:
+
+```shell
+📦 Supply Chain Security Related artifacts for an image: ghcr.io/thomasvitale/band-service
+└── 💾 Attestations for an image tag: ghcr.io/thomasvitale/band-service:sha256-53b8f5bcec33facefcdaa676edeb6c2cdf88b9c1a1bc0f4d0cd23720b4511e1c.att
+   └── 🍒 sha256:0b608efeb00a3bfff29e34535779c84d506d4b64b1c39084ed61ace01473b5cd
+└── 🔐 Signatures for an image tag: ghcr.io/thomasvitale/band-service:sha256-53b8f5bcec33facefcdaa676edeb6c2cdf88b9c1a1bc0f4d0cd23720b4511e1c.sig
+   └── 🍒 sha256:3714100d8c0ae7a088de5f6a548fa5a28969594fce1b958c4168876741cc750b
+```
+
+You can verify the signature and its claims:
+
+```shell
+cosign verify \
+   --certificate-identity-regexp https://github.com/ThomasVitale \
+   --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+   ghcr.io/thomasvitale/band-service | jq
+```
+
+You can also verify the SLSA Provenance attestation associated with the image.
+
+```shell
+cosign verify-attestation --type slsaprovenance \
+   --certificate-identity-regexp https://github.com/slsa-framework \
+   --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+   ghcr.io/thomasvitale/band-service | jq .payload -r | base64 --decode | jq
 ```
 
 ## Software Bill of Materials (SBOMs) with Syft
@@ -103,8 +125,7 @@ You can export SBOM in Syft, SPDX, and CycloneDX formats.
 syft band-service -o cyclonedx-json
 ```
 
-When using Paketo Buildpacks, Syft is already used as part of the build process and SBOMs are generated
-for each layer. You can access the SBOMs per layer with the following command.
+When using Paketo Buildpacks, Syft is already used as part of the build process and SBOMs are generated for each layer. You can access the SBOMs per layer with the following command.
 
 ```shell
 pack sbom download band-service --output-dir sboms
@@ -131,8 +152,7 @@ trivy image <image>
 
 ## Lock dependencies with Gradle
 
-Gradle lets you lock all the dependencies in your project and fail a build is any of them is changed
-outside the standard lifecycle.
+Gradle lets you lock all the dependencies in your project and fail a build is any of them is changed outside the standard lifecycle.
 
 You can generate/update the list of locked dependencies as follows:
 
