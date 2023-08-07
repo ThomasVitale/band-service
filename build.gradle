@@ -38,6 +38,7 @@ tasks.named('bootBuildImage') {
  		builder = "docker.io/dashaun/builder-arm:tiny"
  	}
 
+	builder = "paketobuildpacks/builder-jammy-tiny"
 	imageName = "band-service"
 	
 }
