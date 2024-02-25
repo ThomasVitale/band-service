@@ -15,3 +15,7 @@ spec:
       url: https://github.com/ThomasVitale/band-service
       ref:
         branch: main
+  build:
+    env:
+      - name: BP_JVM_VERSION
+        value: "21"
