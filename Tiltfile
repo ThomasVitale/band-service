@@ -20,4 +20,4 @@ k8s_custom_deploy(
 k8s_resource('band-service', port_forwards=["8080:8080"],
             extra_pod_selectors=[{'carto.run/workload-name': 'band-service', 'app.kubernetes.io/component': 'run'}])
 
-allow_k8s_contexts('do-ams3-kadras-dev-cluster')
+allow_k8s_contexts('do-ams3-kadras-demo-cluster')

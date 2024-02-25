@@ -4,9 +4,10 @@ kind: Workload
 metadata:
   name: band-service
   labels:
-    apps.kadras.io/workload-type: web
-    apps.kadras.io/has-tests: "true"
-    apps.kadras.io/language: "java"
+    app.kadras.io/workload-type: web
+    app.kadras.io/deliverable-type: carvel-app
+    app.kadras.io/has-tests: "true"
+    app.kadras.io/language: java
     app.kubernetes.io/part-of: band-service
 spec:
   source:
