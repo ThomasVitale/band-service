@@ -1,6 +1,6 @@
 # Band Service
 
-![Build Workflow](https://github.com/thomasvitale/band-service/actions/workflows/commit.stage.yml/badge.svg)
+![Build Workflow](https://github.com/thomasvitale/band-service/actions/workflows/commit-stage.yml/badge.svg)
 [![The SLSA Level 3 badge](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev/spec/v1.0/levels)
 [![The Apache 2.0 license badge](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
