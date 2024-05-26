@@ -1,21 +1,12 @@
 ---
-apiVersion: carto.run/v1alpha1
+apiVersion: app.kadras.io/v1alpha1
 kind: Workload
 metadata:
   name: band-service
   labels:
-    app.kadras.io/workload-type: web
-    app.kadras.io/deliverable-type: carvel-app
-    app.kadras.io/has-tests: "true"
-    app.kadras.io/language: java
-    app.kubernetes.io/part-of: band-service
+    app: band-service
 spec:
-  source:
-    git:
-      url: https://github.com/ThomasVitale/band-service
-      ref:
-        branch: main
-  build:
-    env:
-      - name: BP_JVM_VERSION
-        value: "21"
+  image: ghcr.io/thomasvitale/band-service
+  application:
+    framework: spring-boot
+    language: java

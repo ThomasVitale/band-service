@@ -12,21 +12,11 @@
 
 The [pack CLI](https://buildpacks.io/docs/tools/pack/) is "a tool maintained by the Cloud Native Buildpacks project to support the use of buildpacks".
 
-For AMD64 architectures:
-
 ```shell
 pack build band-service \
-    --builder paketobuildpacks/builder-jammy-tiny \
-    --env BP_JVM_VERSION=17
-```
-
-For ARM64 architectures:
-
-```shell
-pack build band-service \
-    --builder docker.io/dashaun/builder-arm:tiny \
-    --env BP_JVM_VERSION=17 \
-    --trust-builder
+  --builder docker.io/paketobuildpacks/builder-jammy-buildpackless-tiny \
+  --buildpack gcr.io/paketo-buildpacks/java \
+  --env BP_JVM_VERSION=21
 ```
 
 ### Buildpacks with Spring Boot
