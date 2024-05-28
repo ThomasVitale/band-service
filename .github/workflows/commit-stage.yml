@@ -23,24 +23,24 @@ jobs:
         with:
           java-version: 21
           distribution: temurin
-      
-      - name: Source code vulnerability scanning
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'fs'
-          scan-ref: '.'
-          format: 'sarif'
-          output: 'trivy-results-source-code.sarif'
-
-      - name: Upload vulnerability report
-        uses: github/codeql-action/upload-sarif@v2
-        if: success() || failure()
-        with:
-          sarif_file: 'trivy-results-source-code.sarif'
-          category: "source-code"
 
       - name: Compile and test
         run: ./gradlew clean build
+      
+      - name: SBOM vulnerability scanning
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'sbom'
+          scan-ref: 'build/reports/application.cdx.json'
+          format: 'sarif'
+          output: 'trivy-results-sbom.sarif'
+
+      - name: Upload vulnerability report
+        uses: github/codeql-action/upload-sarif@v3
+        if: success() || failure()
+        with:
+          sarif_file: 'trivy-results-sbom.sarif'
+          category: "sbom"
 
       - name: Package as OCI image
         run: ./gradlew bootBuildImage --imageName ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
@@ -53,7 +53,7 @@ jobs:
           output: 'trivy-results-oci-image.sarif'
 
       - name: Upload vulnerability report
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         if: success() || failure()
         with:
           sarif_file: 'trivy-results-oci-image.sarif'
