@@ -1,0 +1,1129 @@
+{
+  "lockfile-version": 1,
+  "manifest": {
+    "schema-version": "1.10.0",
+    "install": {
+      "cosign": {
+        "pkg-path": "cosign"
+      },
+      "gitsign": {
+        "pkg-path": "gitsign"
+      },
+      "go-task": {
+        "pkg-path": "go-task"
+      },
+      "graalvm-ce": {
+        "pkg-path": "graalvm-ce",
+        "version": "25"
+      },
+      "httpie": {
+        "pkg-path": "httpie"
+      },
+      "jq": {
+        "pkg-path": "jq"
+      },
+      "pack": {
+        "pkg-path": "pack"
+      },
+      "skopeo": {
+        "pkg-path": "skopeo"
+      },
+      "slsa-verifier": {
+        "pkg-path": "slsa-verifier"
+      }
+    },
+    "vars": {
+      "FLOX_DISABLE_METRICS": "true"
+    },
+    "hook": {},
+    "profile": {},
+    "options": {
+      "systems": [
+        "aarch64-darwin",
+        "aarch64-linux",
+        "x86_64-darwin",
+        "x86_64-linux"
+      ]
+    }
+  },
+  "packages": [
+    {
+      "attr_path": "cosign",
+      "broken": false,
+      "derivation": "/nix/store/ync7v1v65j7xw9lp8wc4a60p2lwp1m32-cosign-3.0.2.drv",
+      "description": "Container Signing CLI with support for ephemeral keys and Sigstore signing",
+      "install_id": "cosign",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "cosign-3.0.2",
+      "pname": "cosign",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T03:39:49.781567Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.0.2",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/x0pxcczidb8309kckdjrnrz1acqdl2gb-cosign-3.0.2"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "cosign",
+      "broken": false,
+      "derivation": "/nix/store/xh84fn4wgjsr2znjh8q4ydjd3d9l6a2b-cosign-3.0.2.drv",
+      "description": "Container Signing CLI with support for ephemeral keys and Sigstore signing",
+      "install_id": "cosign",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "cosign-3.0.2",
+      "pname": "cosign",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:09:38.955555Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.0.2",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/rvwl0nmdwnaj2g6bfi6wa6amszwn29v7-cosign-3.0.2"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "cosign",
+      "broken": false,
+      "derivation": "/nix/store/7lxaiq8aqaraaaj0f53658263w7y5cwc-cosign-3.0.2.drv",
+      "description": "Container Signing CLI with support for ephemeral keys and Sigstore signing",
+      "install_id": "cosign",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "cosign-3.0.2",
+      "pname": "cosign",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:38:17.993987Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.0.2",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/lvp570nccsv9i0k6g3gy6ffa8g1kwfff-cosign-3.0.2"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "cosign",
+      "broken": false,
+      "derivation": "/nix/store/cxxj5dl69r2297jwqp1x3py1wknl3vf8-cosign-3.0.2.drv",
+      "description": "Container Signing CLI with support for ephemeral keys and Sigstore signing",
+      "install_id": "cosign",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "cosign-3.0.2",
+      "pname": "cosign",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T05:09:46.257968Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.0.2",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/i3v53ygkcwhbaav2y7sk3fwcq7m658qr-cosign-3.0.2"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "gitsign",
+      "broken": false,
+      "derivation": "/nix/store/lg53nz73cbzi19alq41xfycd21jxmi30-gitsign-0.13.0.drv",
+      "description": "Keyless Git signing using Sigstore",
+      "install_id": "gitsign",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "gitsign-0.13.0",
+      "pname": "gitsign",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T03:39:50.480026Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.13.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/gvsfhjafi7gzfp66mvyw5rw73i1gi94w-gitsign-0.13.0"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "gitsign",
+      "broken": false,
+      "derivation": "/nix/store/m7znsshp6jwzn0zavyn4m4gr1wb4jnir-gitsign-0.13.0.drv",
+      "description": "Keyless Git signing using Sigstore",
+      "install_id": "gitsign",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "gitsign-0.13.0",
+      "pname": "gitsign",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:09:40.052522Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.13.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/4zqbir2br6r01l5gq3mh4z3r4rvw8xql-gitsign-0.13.0"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "gitsign",
+      "broken": false,
+      "derivation": "/nix/store/df60np6pqchpksr7ncyk1b741wpcn3sb-gitsign-0.13.0.drv",
+      "description": "Keyless Git signing using Sigstore",
+      "install_id": "gitsign",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "gitsign-0.13.0",
+      "pname": "gitsign",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:38:18.692626Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.13.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/1lcvddpa9abb7fjg0fqk94knbrdxad20-gitsign-0.13.0"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "gitsign",
+      "broken": false,
+      "derivation": "/nix/store/2ibik83mh64dwyqqf8y4k03cv8ckw9gv-gitsign-0.13.0.drv",
+      "description": "Keyless Git signing using Sigstore",
+      "install_id": "gitsign",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "gitsign-0.13.0",
+      "pname": "gitsign",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T05:09:47.470428Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.13.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/hl1ikhpqnzp8g72xav8f1j2r9szwqgad-gitsign-0.13.0"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "go-task",
+      "broken": false,
+      "derivation": "/nix/store/kw6cdydcp5q7a70dn0p0jmwqbpmhl0lh-go-task-3.45.4.drv",
+      "description": "Task runner / simpler Make alternative written in Go",
+      "install_id": "go-task",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "go-task-3.45.4",
+      "pname": "go-task",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T03:39:50.557298Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.45.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/jpyzi7ph07mxn64vr684rn4sn81rmdbv-go-task-3.45.4"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "go-task",
+      "broken": false,
+      "derivation": "/nix/store/lsmajj2wbailhin4qcma6iyy5ppgrhsj-go-task-3.45.4.drv",
+      "description": "Task runner / simpler Make alternative written in Go",
+      "install_id": "go-task",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "go-task-3.45.4",
+      "pname": "go-task",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:09:40.525610Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.45.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/bhkmm0w7wmgncwvn8gmbsn254n0r9app-go-task-3.45.4"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "go-task",
+      "broken": false,
+      "derivation": "/nix/store/fhrqghvj596dc73dyxx64in2057vmdyw-go-task-3.45.4.drv",
+      "description": "Task runner / simpler Make alternative written in Go",
+      "install_id": "go-task",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "go-task-3.45.4",
+      "pname": "go-task",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:38:18.804772Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.45.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/pv4fd2995ys0dd4rvsqcn6cd2q2qi98s-go-task-3.45.4"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "go-task",
+      "broken": false,
+      "derivation": "/nix/store/w3rmsajxcs67f5m9ka1l7n2fxjlmqzhb-go-task-3.45.4.drv",
+      "description": "Task runner / simpler Make alternative written in Go",
+      "install_id": "go-task",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "go-task-3.45.4",
+      "pname": "go-task",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T05:09:48.007852Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.45.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/535z3a3p7hwdg4g3w4f4ssq44vnqsxqh-go-task-3.45.4"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "graalvm-ce",
+      "broken": false,
+      "derivation": "/nix/store/hi3y2174mf73yn298a3fhazlskdga5r7-graalvm-ce-25.0.0.drv",
+      "description": "High-Performance Polyglot VM",
+      "install_id": "graalvm-ce",
+      "license": "[ UPL-1.0, GPL-2.0, Classpath-exception-2.0, BSD-3-Clause ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "graalvm-ce-25.0.0",
+      "pname": "graalvm-ce",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T03:39:50.648114Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "25.0.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/b6ap1lqyg9sgvw8jz6kc1jj83za4zcbf-graalvm-ce-25.0.0"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "graalvm-ce",
+      "broken": false,
+      "derivation": "/nix/store/vzvzh31qqp081bzij93pnphgb52w9kf4-graalvm-ce-25.0.0.drv",
+      "description": "High-Performance Polyglot VM",
+      "install_id": "graalvm-ce",
+      "license": "[ UPL-1.0, GPL-2.0, Classpath-exception-2.0, BSD-3-Clause ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "graalvm-ce-25.0.0",
+      "pname": "graalvm-ce",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:09:40.672059Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "25.0.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/9cz0k8c4q4n630vklqrhkp5adv6phij7-graalvm-ce-25.0.0"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "graalvm-ce",
+      "broken": false,
+      "derivation": "/nix/store/kx0wjxpr3lrfg2873zfchw5m5mn1rxjy-graalvm-ce-25.0.0.drv",
+      "description": "High-Performance Polyglot VM",
+      "install_id": "graalvm-ce",
+      "license": "[ UPL-1.0, GPL-2.0, Classpath-exception-2.0, BSD-3-Clause ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "graalvm-ce-25.0.0",
+      "pname": "graalvm-ce",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:38:18.891179Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "25.0.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/q85xbps365r3ik0jkf2hgvz91d42iyj2-graalvm-ce-25.0.0"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "graalvm-ce",
+      "broken": false,
+      "derivation": "/nix/store/1xm0b7hjggrm5f7bz5l8vgivvcxlsa0p-graalvm-ce-25.0.0.drv",
+      "description": "High-Performance Polyglot VM",
+      "install_id": "graalvm-ce",
+      "license": "[ UPL-1.0, GPL-2.0, Classpath-exception-2.0, BSD-3-Clause ]",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "graalvm-ce-25.0.0",
+      "pname": "graalvm-ce",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T05:09:48.167320Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "25.0.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/n4gngmlvgrd5vviwycg2prxk4brax3lk-graalvm-ce-25.0.0"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "httpie",
+      "broken": false,
+      "derivation": "/nix/store/7mp7236j9jjxfl5z1zg7vr1dwa6l47ni-python3.13-httpie-3.2.4.drv",
+      "description": "Command line HTTP client whose goal is to make CLI human-friendly",
+      "install_id": "httpie",
+      "license": "BSD-3-Clause",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "httpie-3.2.4",
+      "pname": "httpie",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T03:40:03.768335Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.2.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "dist": "/nix/store/17dxrzwilg4ymw6ss7zyry3shwqvap13-python3.13-httpie-3.2.4-dist",
+        "out": "/nix/store/02m26wsmpq5c4jqcmvqs0nw99hrswg4g-python3.13-httpie-3.2.4"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "httpie",
+      "broken": false,
+      "derivation": "/nix/store/vydsf8zfz16y8674bj63r4a3hhm4g41p-python3.13-httpie-3.2.4.drv",
+      "description": "Command line HTTP client whose goal is to make CLI human-friendly",
+      "install_id": "httpie",
+      "license": "BSD-3-Clause",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "httpie-3.2.4",
+      "pname": "httpie",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:09:57.259054Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.2.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "dist": "/nix/store/z1czvv9df7yh1jb25yqajfx1qzj6k9mb-python3.13-httpie-3.2.4-dist",
+        "out": "/nix/store/2p9gr6l7bb6iwcfbf6i70q1xy0zwlzzm-python3.13-httpie-3.2.4"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "httpie",
+      "broken": false,
+      "derivation": "/nix/store/ayabh416j5jw0k8m6x6cg15zknbxx4j2-python3.13-httpie-3.2.4.drv",
+      "description": "Command line HTTP client whose goal is to make CLI human-friendly",
+      "install_id": "httpie",
+      "license": "BSD-3-Clause",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "httpie-3.2.4",
+      "pname": "httpie",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:38:31.983029Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.2.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "dist": "/nix/store/1rvs2x8wzr3acckrndzk5s867wqw33aj-python3.13-httpie-3.2.4-dist",
+        "out": "/nix/store/m77h47shn09rczizzpy1fzikd57g8lrm-python3.13-httpie-3.2.4"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "httpie",
+      "broken": false,
+      "derivation": "/nix/store/k1rs1pdbpqsyzkm38hia6ra324sp6pj7-python3.13-httpie-3.2.4.drv",
+      "description": "Command line HTTP client whose goal is to make CLI human-friendly",
+      "install_id": "httpie",
+      "license": "BSD-3-Clause",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "httpie-3.2.4",
+      "pname": "httpie",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T05:10:05.573950Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.2.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "dist": "/nix/store/i2bq56725l82bwjmhfidxi43l4japmqp-python3.13-httpie-3.2.4-dist",
+        "out": "/nix/store/vyaaliq7djc3kssy5mry6z46j65fa9xs-python3.13-httpie-3.2.4"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "jq",
+      "broken": false,
+      "derivation": "/nix/store/9rr3k1gsp57f9hnbrz0rzhdyyiml183m-jq-1.8.1.drv",
+      "description": "Lightweight and flexible command-line JSON processor",
+      "install_id": "jq",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "jq-1.8.1",
+      "pname": "jq",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T03:40:04.778871Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.8.1",
+      "outputs_to_install": [
+        "bin",
+        "man"
+      ],
+      "outputs": {
+        "bin": "/nix/store/cvw7i7807zffz5pn6sjncyp1wkwbgxzm-jq-1.8.1-bin",
+        "dev": "/nix/store/bsi7cf9lk3i4zyv7s0i2hpgy4ifgqvdy-jq-1.8.1-dev",
+        "doc": "/nix/store/jp8v5mjg55vxcjqzcc3g4csl5hdym0c8-jq-1.8.1-doc",
+        "man": "/nix/store/v97vjz6sgnah1i85s9vvjb2cxjah4vyd-jq-1.8.1-man",
+        "out": "/nix/store/j1wzyw1jrlg7kvbxrizvsn0s03zywgka-jq-1.8.1"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "jq",
+      "broken": false,
+      "derivation": "/nix/store/abxiixbf3nzvkka2lhllfx798waqv2fy-jq-1.8.1.drv",
+      "description": "Lightweight and flexible command-line JSON processor",
+      "install_id": "jq",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "jq-1.8.1",
+      "pname": "jq",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:09:58.821707Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.8.1",
+      "outputs_to_install": [
+        "bin",
+        "bin",
+        "man"
+      ],
+      "outputs": {
+        "bin": "/nix/store/p9fcj9s7x82v83sdknjrg40jkl4rvn18-jq-1.8.1-bin",
+        "dev": "/nix/store/m49lxha1r6qyylhkbvkg53kky6bffqp1-jq-1.8.1-dev",
+        "doc": "/nix/store/14yqvw1kq0mbsnjnza1malqxr40plzq2-jq-1.8.1-doc",
+        "man": "/nix/store/5asinq45hb2rdaqxsm35sxq568z19i7v-jq-1.8.1-man",
+        "out": "/nix/store/hv5xwipvr0lyhgii8w532250a6zl29s6-jq-1.8.1"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "jq",
+      "broken": false,
+      "derivation": "/nix/store/71anjl33n3mqpspyr17p9kghhfrlbx9w-jq-1.8.1.drv",
+      "description": "Lightweight and flexible command-line JSON processor",
+      "install_id": "jq",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "jq-1.8.1",
+      "pname": "jq",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:38:32.956703Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.8.1",
+      "outputs_to_install": [
+        "bin",
+        "man"
+      ],
+      "outputs": {
+        "bin": "/nix/store/5w2pssdswkc41rsvn5mklfs2v07nl609-jq-1.8.1-bin",
+        "dev": "/nix/store/ni5787yy9q4gqgrd5s20pl3kswb1m580-jq-1.8.1-dev",
+        "doc": "/nix/store/wfxzfhazy5q9b5azir5kaxf6d8l1axir-jq-1.8.1-doc",
+        "man": "/nix/store/xnafw5gzwy0aycpqc3vmldjm1p2qjqh0-jq-1.8.1-man",
+        "out": "/nix/store/cwyjwb25xy3kj2r873rm5g8rkd5l68r1-jq-1.8.1"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "jq",
+      "broken": false,
+      "derivation": "/nix/store/zadi043l0jm4flk7jdyzbnd9cv9h23nx-jq-1.8.1.drv",
+      "description": "Lightweight and flexible command-line JSON processor",
+      "install_id": "jq",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "jq-1.8.1",
+      "pname": "jq",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T05:10:07.354487Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.8.1",
+      "outputs_to_install": [
+        "bin",
+        "bin",
+        "man"
+      ],
+      "outputs": {
+        "bin": "/nix/store/6y8c4kikq5nka2qnza009j03bvkx2l5l-jq-1.8.1-bin",
+        "dev": "/nix/store/356jlk3akii9kwkb4hmh5xx2mkrb6nqi-jq-1.8.1-dev",
+        "doc": "/nix/store/fm9ffa3r4l8i5gl24xj8cm0ggys8sz7j-jq-1.8.1-doc",
+        "man": "/nix/store/gkl03xki3msw3dylzji7gkiwnxmk3pdp-jq-1.8.1-man",
+        "out": "/nix/store/brz9jqz43dpvb0ia8idhjlxpccplldpq-jq-1.8.1"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "pack",
+      "broken": false,
+      "derivation": "/nix/store/34i2nn9wndgxphy5wk5n8m8sdggair19-pack-0.38.2.drv",
+      "description": "CLI for building apps using Cloud Native Buildpacks",
+      "install_id": "pack",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "pack-0.38.2",
+      "pname": "pack",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T03:40:15.180580Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.38.2",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/bri5cnh2j8qzp9m04zn2fil1c2fdfrxy-pack-0.38.2"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "pack",
+      "broken": false,
+      "derivation": "/nix/store/9llarakpy1w6ivqfaaxqg8zf5qrnkbkv-pack-0.38.2.drv",
+      "description": "CLI for building apps using Cloud Native Buildpacks",
+      "install_id": "pack",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "pack-0.38.2",
+      "pname": "pack",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:10:20.739513Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.38.2",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/73kwlnhckiprmy53lzfmzdcf77hr3rnx-pack-0.38.2"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "pack",
+      "broken": false,
+      "derivation": "/nix/store/ryd26f8m4h118brib8zfx06lwlzlay6s-pack-0.38.2.drv",
+      "description": "CLI for building apps using Cloud Native Buildpacks",
+      "install_id": "pack",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "pack-0.38.2",
+      "pname": "pack",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:38:43.196476Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.38.2",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/ynplikf8i77m29hxh1c4q6fjm1s2d50v-pack-0.38.2"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "pack",
+      "broken": false,
+      "derivation": "/nix/store/db8jzbyzil0rry7ila57932lpznn02k5-pack-0.38.2.drv",
+      "description": "CLI for building apps using Cloud Native Buildpacks",
+      "install_id": "pack",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "pack-0.38.2",
+      "pname": "pack",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T05:10:30.295763Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.38.2",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/124rhlziazqsar4icikahjl4yn84gwgr-pack-0.38.2"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "skopeo",
+      "broken": false,
+      "derivation": "/nix/store/5pppkipsncf75l7waj8612qgiy14g1nq-skopeo-1.20.0.drv",
+      "description": "Command line utility for various operations on container images and image repositories",
+      "install_id": "skopeo",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "skopeo-1.20.0",
+      "pname": "skopeo",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T03:41:36.527536Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.20.0",
+      "outputs_to_install": [
+        "man",
+        "out"
+      ],
+      "outputs": {
+        "man": "/nix/store/69q78w38gy62qk2i511b2hr54d5awd7j-skopeo-1.20.0-man",
+        "out": "/nix/store/pc0r6apabvsxykx0fkfb3mpzpc2yaslk-skopeo-1.20.0"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "skopeo",
+      "broken": false,
+      "derivation": "/nix/store/0mvi5wi353waw6dgn0l2ni7n4m8wvv0w-skopeo-1.20.0.drv",
+      "description": "Command line utility for various operations on container images and image repositories",
+      "install_id": "skopeo",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "skopeo-1.20.0",
+      "pname": "skopeo",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:12:05.430848Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.20.0",
+      "outputs_to_install": [
+        "man",
+        "out"
+      ],
+      "outputs": {
+        "man": "/nix/store/nc9zrfgwbxn9xas0rcnlcy4ws0l2ysch-skopeo-1.20.0-man",
+        "out": "/nix/store/iy4dklwgqnpi0784lvlhgbhyyn0fvcmz-skopeo-1.20.0"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "skopeo",
+      "broken": false,
+      "derivation": "/nix/store/4yyxvri9abr0sfh9bmimzms9n5l39wsy-skopeo-1.20.0.drv",
+      "description": "Command line utility for various operations on container images and image repositories",
+      "install_id": "skopeo",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "skopeo-1.20.0",
+      "pname": "skopeo",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:39:57.990858Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.20.0",
+      "outputs_to_install": [
+        "man",
+        "out"
+      ],
+      "outputs": {
+        "man": "/nix/store/k6xy897isidlmg9xm9z1gd9jdn0vmz9c-skopeo-1.20.0-man",
+        "out": "/nix/store/kdl78v9g9z5viyisgzskqvlgwf3r0zfr-skopeo-1.20.0"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "skopeo",
+      "broken": false,
+      "derivation": "/nix/store/pk1hac8vywcivw3blfwxy7xdyalh8mnw-skopeo-1.20.0.drv",
+      "description": "Command line utility for various operations on container images and image repositories",
+      "install_id": "skopeo",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "skopeo-1.20.0",
+      "pname": "skopeo",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T05:12:11.575191Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.20.0",
+      "outputs_to_install": [
+        "man",
+        "out"
+      ],
+      "outputs": {
+        "man": "/nix/store/4whsg2bqbjqw4sdgqg2bcf7qxswnrv6j-skopeo-1.20.0-man",
+        "out": "/nix/store/3lqhb79g8j29zqxn5qlgbmli5x3xcs0f-skopeo-1.20.0"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "slsa-verifier",
+      "broken": false,
+      "derivation": "/nix/store/dwkyj41cm4vwl2ljmz6mjfgj3s8nc55i-slsa-verifier-2.7.1.drv",
+      "description": "Verify provenance from SLSA compliant builders",
+      "install_id": "slsa-verifier",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "slsa-verifier-2.7.1",
+      "pname": "slsa-verifier",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T03:41:36.627441Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "2.7.1",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/jln4gk4nw06dsym3w9ssafvykrzyfv3g-slsa-verifier-2.7.1"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "slsa-verifier",
+      "broken": false,
+      "derivation": "/nix/store/cyw40llw5f6a9ja417ja80i85ina8irz-slsa-verifier-2.7.1.drv",
+      "description": "Verify provenance from SLSA compliant builders",
+      "install_id": "slsa-verifier",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "slsa-verifier-2.7.1",
+      "pname": "slsa-verifier",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:12:05.605302Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "2.7.1",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/im4ilxphxy127zr538h1y3qv4hbvpk75-slsa-verifier-2.7.1"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "slsa-verifier",
+      "broken": false,
+      "derivation": "/nix/store/h596fpnrq292r3b9fjm1sldchg1pwnzf-slsa-verifier-2.7.1.drv",
+      "description": "Verify provenance from SLSA compliant builders",
+      "install_id": "slsa-verifier",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "slsa-verifier-2.7.1",
+      "pname": "slsa-verifier",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T04:39:58.088258Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "2.7.1",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/glnxp9awgy8m5b7plrrk2kf00rnpglgc-slsa-verifier-2.7.1"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "slsa-verifier",
+      "broken": false,
+      "derivation": "/nix/store/w4l4n7ghb8k23pg14wjflp02grrvf557-slsa-verifier-2.7.1.drv",
+      "description": "Verify provenance from SLSA compliant builders",
+      "install_id": "slsa-verifier",
+      "license": "Apache-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "name": "slsa-verifier-2.7.1",
+      "pname": "slsa-verifier",
+      "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
+      "rev_count": 880095,
+      "rev_date": "2025-10-19T12:55:10Z",
+      "scrape_date": "2025-10-21T05:12:11.737103Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "2.7.1",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/pzdbqi2rck7irdm3y3ly8y4vgf9gy2hg-slsa-verifier-2.7.1"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    }
+  ]
+}

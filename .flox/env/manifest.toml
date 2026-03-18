@@ -1,0 +1,29 @@
+schema-version = "1.10.0"
+
+[install]
+cosign.pkg-path = "cosign"
+go-task.pkg-path = "go-task"
+graalvm-ce.pkg-path = "graalvm-ce"
+graalvm-ce.version = "25"
+httpie.pkg-path = "httpie"
+jq.pkg-path = "jq"
+slsa-verifier.pkg-path = "slsa-verifier"
+skopeo.pkg-path = "skopeo"
+gitsign.pkg-path = "gitsign"
+pack.pkg-path = "pack"
+
+[vars]
+FLOX_DISABLE_METRICS = "true"
+
+[hook]
+
+[profile]
+
+[services]
+
+[include]
+
+[build]
+
+[options]
+systems = ["aarch64-darwin", "aarch64-linux", "x86_64-darwin", "x86_64-linux"]

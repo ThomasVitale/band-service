@@ -1,0 +1,48 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  REGISTRY: ghcr.io
+  IMAGE: thomasvitale/band-service
+  VERSION: '{{.VERSION | default "latest"}}'
+
+tasks:
+  default:
+    cmds:
+      - task --list
+    silent: true
+
+  build:
+    desc: Compile and test the application
+    cmds:
+      - ./gradlew build --no-daemon
+
+  image:build:amd64:
+    desc: Build and publish the AMD64 OCI image
+    cmds:
+      - ./gradlew bootBuildImage --imageName {{.REGISTRY}}/{{.IMAGE}}:{{.VERSION}}-amd64 --imagePlatform linux/amd64
+      - docker push {{.REGISTRY}}/{{.IMAGE}}:{{.VERSION}}-amd64
+
+  image:build:arm64:
+    desc: Build and publish the ARM64 OCI image
+    cmds:
+      - ./gradlew bootBuildImage --imageName {{.REGISTRY}}/{{.IMAGE}}:{{.VERSION}}-arm64 --imagePlatform linux/arm64
+      - docker push {{.REGISTRY}}/{{.IMAGE}}:{{.VERSION}}-arm64
+
+  image:build:
+    desc: Build and publish the multi-arch OCI image (requires amd64 and arm64 images to be published first)
+    cmds:
+      - docker manifest create {{.REGISTRY}}/{{.IMAGE}}:{{.VERSION}}
+          --amend {{.REGISTRY}}/{{.IMAGE}}:{{.VERSION}}-amd64
+          --amend {{.REGISTRY}}/{{.IMAGE}}:{{.VERSION}}-arm64
+      - docker manifest push {{.REGISTRY}}/{{.IMAGE}}:{{.VERSION}}
+
+  image:sign:
+    desc: Sign the OCI image with Cosign
+    vars:
+      IMAGE_DIGEST:
+        sh: skopeo inspect docker://{{.REGISTRY}}/{{.IMAGE}}:{{.VERSION}} | jq -r '.Digest'
+    cmds:
+      - echo "Signing image{{":"}} {{.REGISTRY}}/{{.IMAGE}}@{{.IMAGE_DIGEST}}"
+      - cosign sign --yes {{.REGISTRY}}/{{.IMAGE}}@{{.IMAGE_DIGEST}}

@@ -1,10 +1,36 @@
 name: Commit Stage
-on: push
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.editorconfig'
+      - '.gitattributes'
+      - '.gitignore'
+      - '.sdkmanrc'
+      - '*.adoc'
+      - '*.png'
+      - '*.md'
+      - '*.txt'
+      - 'catalog-info.yaml'
+      - 'docs/**'
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/*.md'
+      - '.github/*.yml'
+      - '.github/*.yaml'
+  pull_request:
+    branches:
+      - main
 
 env:
+  FLOX_DISABLE_METRICS: true
   REGISTRY: ghcr.io
-  IMAGE_NAME: thomasvitale/band-service
+  IMAGE: thomasvitale/band-service
   VERSION: ${{ github.sha }}
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -12,73 +38,37 @@ jobs:
     runs-on: ubuntu-24.04
     permissions:
       contents: read
-      packages: write
-      security-events: write
     steps:
       - name: Checkout source code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
 
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 25
-          distribution: temurin
+      - name: Install Flox
+        uses: flox/install-flox-action@9428713e8d3883274c334b4b95b8830beebd24d2 # v2.3.0
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
 
       - name: Compile and test
-        run: ./gradlew clean build
-      
-#      - name: SBOM vulnerability scanning
-#        uses: aquasecurity/trivy-action@master
-#        with:
-#          scan-type: 'sbom'
-#          scan-ref: 'build/reports/application.cdx.json'
-#          format: 'sarif'
-#          output: 'trivy-results-sbom.sarif'
-#
-#      - name: Upload vulnerability report
-#        uses: github/codeql-action/upload-sarif@v3
-#        if: success() || failure()
-#        with:
-#          sarif_file: 'trivy-results-sbom.sarif'
-#          category: "sbom"
-
-      - name: Package as OCI image
-        run: ./gradlew bootBuildImage --imageName ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-      
-#      - name: OCI image vulnerability scanning
-#        uses: aquasecurity/trivy-action@master
-#        with:
-#          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-#          format: 'sarif'
-#          output: 'trivy-results-oci-image.sarif'
-#
-#      - name: Upload vulnerability report
-#        uses: github/codeql-action/upload-sarif@v3
-#        if: success() || failure()
-#        with:
-#          sarif_file: 'trivy-results-oci-image.sarif'
-#          category: "oci-image"
-
-      - name: Login to Docker
-        uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4.0.0
+        uses: flox/activate-action@410568008895a0f2e09a34bbd9523f8ef1f2d292 # v1.1.0
         with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: ${{ env.REGISTRY }}
+          command: task build
 
-      - name: Publish OCI image
-        run: |
-          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+#      - name: Publish SBOM
+#        uses: DependencyTrack/gh-upload-sbom@48feab3080ff9e8f51f4d21861d9fc914eb744f5 # v3.1.0
+#        with:
+#          serverHostname: ${{ secrets.DEPENDENCY_TRACK_HOSTNAME }}
+#          apiKey: ${{ secrets.DEPENDENCY_TRACK_API_KEY }}
+#          projectName: ${{ github.event.repository.name }}
+#          projectVersion: ${{ github.ref_name }}
+#          projectTags: 'java,spring-boot'
+#          bomFilename: "build/reports/cyclonedx/application.cdx.json"
+#          autoCreate: true
 
-  sign:
-    name: Sign
+  package:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    name: Package
     runs-on: ubuntu-24.04
     needs: [build]
     permissions:
@@ -88,28 +78,52 @@ jobs:
       id-token: write
       packages: write
     steps:
-      - name: Install Cosign
-        uses: sigstore/cosign-installer@v4.1.0
+      - name: Checkout source code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
 
-      - uses: redhat-actions/podman-login@v1.7
+      - name: Install Flox
+        uses: flox/install-flox-action@9428713e8d3883274c334b4b95b8830beebd24d2 # v2.3.0
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
+
+      - name: Login to Docker
+        uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4.0.0
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ${{ env.REGISTRY }}
 
-      - name: Fetch OCI image 
-        run: podman pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
 
-      - name: Get OCI image digest
-        id: image-info
-        run: |
-          image_digest=$(podman inspect --format='{{.Digest}}' ${REGISTRY}/${IMAGE_NAME}:${VERSION})
-          echo $image_digest
-          echo "IMAGE_DIGEST=${image_digest}" >> $GITHUB_ENV
+      - name: Build and publish AMD64 OCI image
+        uses: flox/activate-action@410568008895a0f2e09a34bbd9523f8ef1f2d292 # v1.1.0
+        with:
+          command: task image:build:amd64 VERSION=${{ env.VERSION }}
 
-      - name: Sign image
-        run: |
-          cosign sign --yes "${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST}"
+      - name: Build and publish ARM64 OCI image
+        uses: flox/activate-action@410568008895a0f2e09a34bbd9523f8ef1f2d292 # v1.1.0
+        with:
+          command: task image:build:arm64 VERSION=${{ env.VERSION }}
+
+      - name: Build and publish multi-arch OCI image
+        uses: flox/activate-action@410568008895a0f2e09a34bbd9523f8ef1f2d292 # v1.1.0
+        with:
+          command: task image:build VERSION=${{ env.VERSION }}
+
+      - name: Sign OCI image
+        uses: flox/activate-action@410568008895a0f2e09a34bbd9523f8ef1f2d292 # v1.1.0
+        with:
+          command: task image:sign VERSION=${{ env.VERSION }}
+
+      - name: Read image digest
+        id: digest
+        uses: flox/activate-action@410568008895a0f2e09a34bbd9523f8ef1f2d292 # v1.1.0
+        with:
+          command: echo "IMAGE_DIGEST=$(skopeo inspect docker://${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.VERSION }} | jq -r '.Digest')" >> $GITHUB_ENV
 
       - name: Attest OCI image
         uses: actions/attest@59d89421af93a897026c735860bf21b6eb4f7b26 # v4.1.0

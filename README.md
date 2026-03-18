@@ -4,6 +4,16 @@
 [![The SLSA Level 3 badge](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev/spec/v1.0/levels)
 [![The Apache 2.0 license badge](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+## Development environment
+
+This project uses [Flox](https://flox.dev/) to manage the development and build environment via [Nix](https://nixos.org). After [installing](https://flox.dev/docs/install-flox/install/) the Flox CLI (open-source), activate the environment:
+
+```shell
+flox activate
+```
+
+Either way, you'll need a container runtime like Podman or Docker installed on your machine.
+
 ## Container images with Cloud Native Buildpacks
 
 "Cloud Native Buildpacks transform your application source code into images that can run on any cloud." ([buildpacks.io](https://buildpacks.io))
@@ -14,8 +24,7 @@ The [pack CLI](https://buildpacks.io/docs/tools/pack/) is "a tool maintained by 
 
 ```shell
 pack build band-service \
-  --builder docker.io/paketobuildpacks/builder-jammy-buildpackless-tiny \
-  --buildpack gcr.io/paketo-buildpacks/java \
+  --builder docker.io/paketobuildpacks/builder-noble-java-tiny \
   --env BP_JVM_VERSION=25
 ```
 
@@ -29,13 +38,7 @@ pack build band-service \
 
 ## Signing commits with Sigstore gitsign
 
-Install [gitsgin](https://github.com/sigstore/gitsign):
-
-```shell
-brew install sigstore/tap/gitsign
-```
-
-Configure your application repository to enforce commit signing with gitsign:
+Configure your application repository to enforce commit signing with [gitsgin](https://github.com/sigstore/gitsign):
 
 ```shell
 cd <your_repository_path>
@@ -59,7 +62,7 @@ git verify-commit HEAD
 
 ## Verifying signatures and SLSA attestations
 
-After packaging the currente application as an OCI image, cosign is used to sign the artifact and the SLSA attestation.
+After packaging the current application as an OCI image, cosign is used to sign the artifact and the SLSA attestation.
 
 Using `cosign`, you can display the supply chain security related artifacts for the `ghcr.io/thomasvitale/band-service` images. Use the specific digest you'd like to verify.
 

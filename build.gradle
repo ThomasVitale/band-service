@@ -15,12 +15,6 @@ java {
     }
 }
 
-configurations.all {
-    resolutionStrategy {
-        failOnNonReproducibleResolution()
-    }
-}
-
 repositories {
 	mavenCentral()
 }
@@ -43,5 +37,5 @@ tasks.named('test') {
 }
 
 tasks.named('bootBuildImage') {
-    builder = "paketobuildpacks/builder-noble-java-tiny"
+    builder = "docker.io/paketobuildpacks/builder-noble-java-tiny"
 }
