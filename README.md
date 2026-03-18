@@ -16,7 +16,7 @@ The [pack CLI](https://buildpacks.io/docs/tools/pack/) is "a tool maintained by 
 pack build band-service \
   --builder docker.io/paketobuildpacks/builder-jammy-buildpackless-tiny \
   --buildpack gcr.io/paketo-buildpacks/java \
-  --env BP_JVM_VERSION=21
+  --env BP_JVM_VERSION=25
 ```
 
 ### Buildpacks with Spring Boot

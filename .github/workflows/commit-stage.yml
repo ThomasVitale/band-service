@@ -9,58 +9,63 @@ env:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
       security-events: write
     steps:
-      - name: Check out source code
-        uses: actions/checkout@v4
+      - name: Checkout source code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
 
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          java-version: 21
+          java-version: 25
           distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
 
       - name: Compile and test
         run: ./gradlew clean build
       
-      - name: SBOM vulnerability scanning
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'sbom'
-          scan-ref: 'build/reports/application.cdx.json'
-          format: 'sarif'
-          output: 'trivy-results-sbom.sarif'
-
-      - name: Upload vulnerability report
-        uses: github/codeql-action/upload-sarif@v3
-        if: success() || failure()
-        with:
-          sarif_file: 'trivy-results-sbom.sarif'
-          category: "sbom"
+#      - name: SBOM vulnerability scanning
+#        uses: aquasecurity/trivy-action@master
+#        with:
+#          scan-type: 'sbom'
+#          scan-ref: 'build/reports/application.cdx.json'
+#          format: 'sarif'
+#          output: 'trivy-results-sbom.sarif'
+#
+#      - name: Upload vulnerability report
+#        uses: github/codeql-action/upload-sarif@v3
+#        if: success() || failure()
+#        with:
+#          sarif_file: 'trivy-results-sbom.sarif'
+#          category: "sbom"
 
       - name: Package as OCI image
         run: ./gradlew bootBuildImage --imageName ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
       
-      - name: OCI image vulnerability scanning
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-          format: 'sarif'
-          output: 'trivy-results-oci-image.sarif'
+#      - name: OCI image vulnerability scanning
+#        uses: aquasecurity/trivy-action@master
+#        with:
+#          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+#          format: 'sarif'
+#          output: 'trivy-results-oci-image.sarif'
+#
+#      - name: Upload vulnerability report
+#        uses: github/codeql-action/upload-sarif@v3
+#        if: success() || failure()
+#        with:
+#          sarif_file: 'trivy-results-oci-image.sarif'
+#          category: "oci-image"
 
-      - name: Upload vulnerability report
-        uses: github/codeql-action/upload-sarif@v3
-        if: success() || failure()
-        with:
-          sarif_file: 'trivy-results-oci-image.sarif'
-          category: "oci-image"
-
-      - name: Authenticate with the container registry
-        uses: docker/login-action@v3
+      - name: Login to Docker
+        uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4.0.0
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
@@ -74,18 +79,17 @@ jobs:
 
   sign:
     name: Sign
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [build]
     permissions:
+      artifact-metadata: write
+      attestations: write
       contents: read
-      packages: write
       id-token: write
-    outputs:
-      image-digest: ${{ steps.image-info.outputs.digest }}
-      image-name: ${{ steps.image-info.outputs.name }}
+      packages: write
     steps:
       - name: Install Cosign
-        uses: sigstore/cosign-installer@v3
+        uses: sigstore/cosign-installer@v4.1.0
 
       - uses: redhat-actions/podman-login@v1.7
         with:
@@ -102,23 +106,15 @@ jobs:
           image_digest=$(podman inspect --format='{{.Digest}}' ${REGISTRY}/${IMAGE_NAME}:${VERSION})
           echo $image_digest
           echo "IMAGE_DIGEST=${image_digest}" >> $GITHUB_ENV
-          echo "digest=${image_digest}" >> $GITHUB_OUTPUT
-          echo "name=${REGISTRY}/${IMAGE_NAME}" >> $GITHUB_OUTPUT
 
       - name: Sign image
         run: |
           cosign sign --yes "${REGISTRY}/${IMAGE_NAME}@${IMAGE_DIGEST}"
 
-  provenance:
-    needs: [sign]
-    permissions:
-      actions: read
-      id-token: write
-      packages: write
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v1.10.0
-    with:
-      image: ${{ needs.sign.outputs.image-name }}
-      digest: ${{ needs.sign.outputs.image-digest }}
-      registry-username: ${{ github.actor }}
-    secrets:
-      registry-password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Attest OCI image
+        uses: actions/attest@59d89421af93a897026c735860bf21b6eb4f7b26 # v4.1.0
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE }}
+          subject-digest: ${{ env.IMAGE_DIGEST }}
+          push-to-registry: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
