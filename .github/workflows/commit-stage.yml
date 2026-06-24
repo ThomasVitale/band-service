@@ -51,7 +51,7 @@ jobs:
         uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
 
       - name: Compile and test
-        uses: flox/activate-action@410568008895a0f2e09a34bbd9523f8ef1f2d292 # v1.1.0
+        uses: flox/activate-action@7065dcbe5583b7b015f07a8ebd49d7266e3053e8 # v1.1.1
         with:
           command: task build
 
@@ -100,28 +100,28 @@ jobs:
         uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
 
       - name: Build and publish AMD64 OCI image
-        uses: flox/activate-action@410568008895a0f2e09a34bbd9523f8ef1f2d292 # v1.1.0
+        uses: flox/activate-action@7065dcbe5583b7b015f07a8ebd49d7266e3053e8 # v1.1.1
         with:
           command: task image:build:amd64 VERSION=${{ env.VERSION }}
 
       - name: Build and publish ARM64 OCI image
-        uses: flox/activate-action@410568008895a0f2e09a34bbd9523f8ef1f2d292 # v1.1.0
+        uses: flox/activate-action@7065dcbe5583b7b015f07a8ebd49d7266e3053e8 # v1.1.1
         with:
           command: task image:build:arm64 VERSION=${{ env.VERSION }}
 
       - name: Build and publish multi-arch OCI image
-        uses: flox/activate-action@410568008895a0f2e09a34bbd9523f8ef1f2d292 # v1.1.0
+        uses: flox/activate-action@7065dcbe5583b7b015f07a8ebd49d7266e3053e8 # v1.1.1
         with:
           command: task image:build VERSION=${{ env.VERSION }}
 
       - name: Sign OCI image
-        uses: flox/activate-action@410568008895a0f2e09a34bbd9523f8ef1f2d292 # v1.1.0
+        uses: flox/activate-action@7065dcbe5583b7b015f07a8ebd49d7266e3053e8 # v1.1.1
         with:
           command: task image:sign VERSION=${{ env.VERSION }}
 
       - name: Read image digest
         id: digest
-        uses: flox/activate-action@410568008895a0f2e09a34bbd9523f8ef1f2d292 # v1.1.0
+        uses: flox/activate-action@7065dcbe5583b7b015f07a8ebd49d7266e3053e8 # v1.1.1
         with:
           command: echo "IMAGE_DIGEST=$(skopeo inspect docker://${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.VERSION }} | jq -r '.Digest')" >> $GITHUB_ENV
 
