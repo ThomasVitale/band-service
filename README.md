@@ -6,11 +6,13 @@
 
 ## Development environment
 
-This project uses [Flox](https://flox.dev/) to manage the development and build environment via [Nix](https://nixos.org). After [installing](https://flox.dev/docs/install-flox/install/) the Flox CLI (open-source), activate the environment:
+This project uses [devenv](https://devenv.sh) to manage the development and build environment via [Nix](https://nixos.org). After [installing](https://devenv.sh/getting-started/) Nix and the devenv CLI, enter the environment:
 
 ```shell
-flox activate
+devenv shell
 ```
+
+If you use [direnv](https://direnv.net), run `devenv init` once to generate an `.envrc` so the environment is activated automatically when you enter the project directory.
 
 Either way, you'll need a container runtime like Podman or Docker installed on your machine.
 
